@@ -6,3 +6,13 @@ html,body{
 .back-colored{
     background-color: #ebedc9;
 }
+
+.hover-enlarge{
+    transition: all 0.1s linear;
+}
+
+.hover-enlarge:hover{
+    -webkit-transform : scale(1.2);
+    color: #212529 !important;
+    transform : scale(1.2);
+}
