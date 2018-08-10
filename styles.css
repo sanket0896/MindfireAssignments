@@ -26,3 +26,7 @@ html,body{
     color: #212529 !important;
     transform : scale(1.2);
 }
+
+.edit-icon{
+    cursor: pointer;
+}
