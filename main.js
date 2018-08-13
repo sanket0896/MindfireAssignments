@@ -43,7 +43,7 @@ if (personDetails) {
 }
 else{
   alert("User details doesn't exist in records. Please fill the details first.");
-  window.open("/edit.html","_self");
+  window.open("./edit.html","_self");
 }
 
 document.getElementById("delete-user").addEventListener("click",function () {
