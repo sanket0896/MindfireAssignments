@@ -10,16 +10,35 @@
     <title>Edit Details</title>
 </head>
 <body>
-    <div class="back-colored container-fluid pt-5 pb-5">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(187, 183, 154)">
+        <a class="navbar-brand" href="#">Public Profile Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto w-25 justify-content-between mr-5">
+            <li class="nav-item">
+                <a class="nav-link" href="/index.html">Profile</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/edit.html">Edit<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="delete-user" href="#">Delete</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="back-colored container-fluid pt-3 pb-5">
         <div class="row mx-0 mx-md-3">
             <div class="col-md-3 mb-4 mb-md-0 px-0 px-lg-3">
                 <div class="row mx-0 mx-xl-2">
                     <div class="card col-12 pt-2 mt-3 shadow">
                         <div class="text-center">
-                            <img src="http://via.placeholder.com/100x100" alt="placeholder image 100 x 100" class="img-100 mt-2 justify-content-center border border-danger rounded-circle">
+                            <img src="http://via.placeholder.com/100x100" alt="placeholder image 100 x 100" id="dp-self" class="img-100 mt-2 justify-content-center border border-danger rounded-circle">
                             <i data-toggle="modal" data-target="#dp-upload-modal" class="edit-icon fas fa-edit position-absolute text-muted small mt-2"></i>
                         </div>
-                        <form action="">
+                        <form action="" id="page-form-personal-details">
                             <div class="card-body">
                                 <!-- <h3 class="card-title text-center mb-0">Generic Person</h3> -->
                                 <input type="text" class="form-control" id="name-self" name="name-self" placeholder="Enter your name" value="">
@@ -42,19 +61,19 @@
                             <div class="card-body text-left row pb-2">
                                 <div class="col-12 row pr-0 mb-3">
                                     <label for="" class="col-2"><i class="fab fa-facebook-f fa-lg text-secondary"></i></label>
-                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="fb-self">
+                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="facebook-self">
                                 </div>
                                 <div class="col-12 row pr-0 mb-3">
                                     <label for="" class="col-2"><i class="fab fa-twitter fa-lg text-secondary"></i></label>
-                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="fb-self">
+                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="twitter-self">
                                 </div>
                                 <div class="col-12 row pr-0 mb-3">
                                     <label for="" class="col-2"><i class="fab fa-github fa-lg text-secondary"></i></label>
-                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="fb-self">
+                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="github-self">
                                 </div>
                                 <div class="col-12 row pr-0 mb-3">
                                     <label for="" class="col-2"><i class="fab fa-linkedin-in fa-lg text-secondary"></i></label>
-                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="fb-self">
+                                    <input type="url" class="offset-md-2 col-8 form-control form-control-sm" id="linkedin-self">
                                 </div>
                             </div>
                             <input type="submit" value="Save" class="w-100 btn btn-success mb-3">
@@ -65,7 +84,7 @@
             <div class="col-md-9 px-0 px-lg-3">
                 <div class="row mx-0 mx-md-3">
                     <div class="card mx-0 mx-md-3 col-md-12 rounded shadow-sm mt-3">
-                        <form action="">
+                        <form action="" id="page-form-bio">
                             <div class="card-body">
                                 <h5 class="card-title">Bio</h5>
                                 <div class="card-text">
@@ -134,7 +153,6 @@
             </div>
             <form action="" id="modal-form-dp">
                 <div class="modal-body">
-                    <!-- <input type="file" name="dp-self" id="dp-self"> -->
                     <label for="dp-url-self">URL : </label>
                     <input type="url" name="dp-url-self" id="dp-url-self" placeholder="Enter image url" required>
                 </div>
@@ -155,9 +173,8 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="">
+                <form action="" id="modal-form-friend">
                     <div class="modal-body">
-                        <!-- <input type="file" name="dp-self" id="dp-self"> -->
                         <label for="friend-url">URL : </label>
                         <input type="url" name="friend-url" id="friend-url" placeholder="Enter image url" required>
                         <label for="friend-name">Name : </label>
@@ -174,15 +191,14 @@
     <div class="modal fade" id="like-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form action="">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Likes</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Likes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    </button>
+                </div>
+                <form action="" id="modal-form-like">
                     <div class="modal-body">
-                            <!-- <input type="file" name="dp-self" id="dp-self"> -->
                             <label for="like-url">URL : </label>
                             <input type="url" name="like-url" id="like-url" placeholder="Enter image url" required>
                             <label for="like-name">Name : </label>
@@ -205,9 +221,8 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="">
+                <form action="" id="modal-form-interest">
                     <div class="modal-body">
-                        <!-- <input type="file" name="dp-self" id="dp-self"> -->
                         <label for="interest-url">URL : </label>
                         <input type="url" name="interest-url" id="interest-url" placeholder="Enter image url" required>
                         <label for="interest-name">Name : </label>
@@ -222,21 +237,9 @@
         </div>
     </div>
 
-    <!-- Firebase App is always required and must be first -->
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-app.js"></script>
-
-    <!-- Add additional services that you want to use -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-messaging.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-functions.js"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="./firebase_db.js"></script>
-    <script src="./firebase_db_edit.js"></script>
     <script src="./edit.js"></script>
 </body>
 </html>
