@@ -43,6 +43,6 @@ html,body{
     font-size: 2em;
 }
 
-.fas.hover-cursor-pointer,.fab.fas.hover-cursor-pointer{
+.hover-cursor-pointer{
     cursor: pointer;
 }

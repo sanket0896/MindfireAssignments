@@ -81,8 +81,8 @@
                             <div class="card-text">
                                 <ul class="list-inline row text-center">
                                     <li class="col-6 col-sm-3 col-lg-2 mr-0 list-inline-item">
-                                        <div class="fa-icon-container align-middle justify-content-center">
-                                            <i class="icon-enlarge hover-cursor-pointer fas fa-plus fa-lg text-secondary"></i> 
+                                        <div data-toggle="modal" data-target="#friend-upload-modal" class="fa-icon-container align-middle justify-content-center hover-cursor-pointer">
+                                            <i class="icon-enlarge fas fa-plus fa-lg text-secondary"></i> 
                                         </div>
                                     </li>
                                 </ul>
@@ -95,7 +95,7 @@
                             <div class="card-text">
                                 <ul class="list-inline row text-center">
                                     <li class="col-6 col-sm-3 col-lg-2 mr-0 list-inline-item">
-                                        <div class="fa-icon-container align-middle justify-content-center">
+                                        <div data-toggle="modal" data-target="#like-upload-modal" class="fa-icon-container align-middle justify-content-center hover-cursor-pointer">
                                             <i class="icon-enlarge hover-cursor-pointer fas fa-plus fa-lg text-secondary"></i> 
                                         </div>
                                     </li>
@@ -108,8 +108,8 @@
                             <h5 class="card-title">Interests</h5>
                             <div class="card-text">
                                 <ul class="list-inline row text-center">
-                                    <li class="col-6 col-sm-3 col-lg-2 mr-0 list-inline-item">
-                                        <div class="fa-icon-container align-middle justify-content-center">
+                                    <li class=" col-6 col-sm-3 col-lg-2 mr-0 list-inline-item">
+                                        <div data-toggle="modal" data-target="#interest-upload-modal" class="hover-cursor-pointer fa-icon-container align-middle justify-content-center">
                                             <i class="icon-enlarge hover-cursor-pointer fas fa-plus fa-lg text-secondary"></i> 
                                         </div>
                                     </li>
@@ -126,24 +126,102 @@
     <div class="modal fade" id="dp-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form action="">
-                <input type="file" name="dp-self" id="dp-self">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit display picture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" id="modal-form-dp">
+                <div class="modal-body">
+                    <!-- <input type="file" name="dp-self" id="dp-self"> -->
+                    <label for="dp-url-self">URL : </label>
+                    <input type="url" name="dp-url-self" id="dp-url-self" placeholder="Enter image url" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </div>
             </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success" disabled>Upload</button>
-        </div>
-        </div>
     </div>
     </div>
+    <div class="modal fade" id="friend-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Friends</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <!-- <input type="file" name="dp-self" id="dp-self"> -->
+                        <label for="friend-url">URL : </label>
+                        <input type="url" name="friend-url" id="friend-url" placeholder="Enter image url" required>
+                        <label for="friend-name">Name : </label>
+                        <input type="text" name="friend-name" id="friend-name" placeholder="Enter friend name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="like-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Likes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <!-- <input type="file" name="dp-self" id="dp-self"> -->
+                            <label for="like-url">URL : </label>
+                            <input type="url" name="like-url" id="like-url" placeholder="Enter image url" required>
+                            <label for="like-name">Name : </label>
+                            <input type="text" name="like-name" id="like-name" placeholder="Enter like name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="interest-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Interests</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <!-- <input type="file" name="dp-self" id="dp-self"> -->
+                        <label for="interest-url">URL : </label>
+                        <input type="url" name="interest-url" id="interest-url" placeholder="Enter image url" required>
+                        <label for="interest-name">Name : </label>
+                        <input type="text" name="interest-name" id="interest-name" placeholder="Enter like name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-app.js"></script>
 
