@@ -175,6 +175,6 @@ $("#modal-form-interest").on("submit", function (e) {
 $("#delete-user").on("click",function () {
     wStorage.removeItem("personDetails");
     alert("User deleted. Please fill the details again.");
-    window.open("/edit.html","_self");
+    window.open("./edit.html","_self");
 });
 
