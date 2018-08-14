@@ -1,7 +1,7 @@
 let wStorage = window.localStorage;
 let personDetails = wStorage.getItem("personDetails");
 
-function populateDataInElement(elementId,data,isLink=false) {
+function populateDataInElement(elementId,data,isLink=false,isSocial=false) {
   let parentNode = document.getElementById(elementId);
   if (Array.isArray(data)) {
     data.forEach(function (dataInstance) {
@@ -11,17 +11,45 @@ function populateDataInElement(elementId,data,isLink=false) {
   }
   else if(isLink === true) {
       if (elementId === "dp-self") {
-        if (data!=="#") {
+        if (data !== "") {
           parentNode.src = data;          
         }
       }
-      else{
-        parentNode.href = data;
+      else if(isSocial === true){
+        if (data === "") {
+          parentNode.parentElement.removeChild(parentNode);
+        }
+        let socialData;
+        switch (elementId) {
+          case "facebook-self":
+            socialData = "https://www.facebook.com/"+data;
+            break;
+          case "twitter-self":
+            socialData = "https://twitter.com/"+data;
+            break;
+          case "github-self":
+            socialData = "https://github.com/"+data;
+            break;
+          case "linkedin-self":
+            socialData = "https://www.linkedin.com/in/"+data;
+            break;
+          default:
+
+            break;
+        }
+        parentNode.href = socialData;
       }
       return;
     }
   else{
-    parentNode.innerHTML=data;
+    if (elementId === "dob-self") {
+      console.log(data.split("-").reverse().join("-"));      
+      parentNode.innerHTML=data.split("-").reverse().join("-");
+      console.log(parentNode.innerHTML);      
+    }
+    else{
+      parentNode.innerHTML=data;
+    }
   }
 }
 
@@ -32,10 +60,10 @@ if (personDetails) {
   populateDataInElement("dob-self", personDetails.personalDetails.dob);
   populateDataInElement("city-self", personDetails.personalDetails.city);
   populateDataInElement("company-self", personDetails.personalDetails.company);
-  populateDataInElement("facebook-self", personDetails.personalDetails.facebookURL,true);
-  populateDataInElement("twitter-self", personDetails.personalDetails.twitterURL,true);
-  populateDataInElement("github-self", personDetails.personalDetails.githubURL,true);
-  populateDataInElement("linkedin-self", personDetails.personalDetails.linkedinURL,true);
+  populateDataInElement("facebook-self", personDetails.personalDetails.facebookURL,true,true,true);
+  populateDataInElement("twitter-self", personDetails.personalDetails.twitterURL,true,true);
+  populateDataInElement("github-self", personDetails.personalDetails.githubURL,true,true);
+  populateDataInElement("linkedin-self", personDetails.personalDetails.linkedinURL,true,true);
   populateDataInElement("bio-text", personDetails.bioDetails);
   populateDataInElement("friends-list", personDetails.friendDetails);
   populateDataInElement("likes-list", personDetails.likeDetails);

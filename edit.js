@@ -4,7 +4,7 @@ let wStorage = window.localStorage;
 
 let personDetails = {
     "personalDetails" : {
-        "dpURLSelf" : "#",
+        "dpURLSelf" : "",
         "name": "",
         "dob": "",
         "city": "",
@@ -33,8 +33,6 @@ function getDataFromStorage(key) {
 function populateDataInElement(elementId,data,isLink=false) {
     let parentNode = document.getElementById(elementId); 
     if (Array.isArray(data)) {
-        console.log(parentNode.childNodes);
-        
         while (parentNode.childNodes.length>2) {
             parentNode.removeChild(parentNode.lastChild);
         }
@@ -45,21 +43,17 @@ function populateDataInElement(elementId,data,isLink=false) {
     }
     else if(isLink === true) {
         if (elementId === "dp-self") {
-            if (data!="#") {
+            if (data!=="") {
                 parentNode.src = data;                
             }
         }
-        else{
-            parentNode.href = data;
-        }
-        return;
     }
     else{
         parentNode.value=data;
     }
 }
 
-function reloadElements() {
+function reloadElements() {    
     let currentPerson = getDataFromStorage("personDetails");
     if (currentPerson) {
         populateDataInElement("dp-self", currentPerson.personalDetails.dpURLSelf, true);
@@ -67,10 +61,10 @@ function reloadElements() {
         populateDataInElement("dob-self", currentPerson.personalDetails.dob);
         populateDataInElement("city-self", currentPerson.personalDetails.city);
         populateDataInElement("company-self", currentPerson.personalDetails.company);
-        populateDataInElement("facebook-self", currentPerson.personalDetails.facebookURL,true);
-        populateDataInElement("twitter-self", currentPerson.personalDetails.twitterURL,true);
-        populateDataInElement("github-self", currentPerson.personalDetails.githubURL,true);
-        populateDataInElement("linkedin-self", currentPerson.personalDetails.linkedinURL,true);
+        populateDataInElement("facebook-self", currentPerson.personalDetails.facebookURL);
+        populateDataInElement("twitter-self", currentPerson.personalDetails.twitterURL);
+        populateDataInElement("github-self", currentPerson.personalDetails.githubURL);
+        populateDataInElement("linkedin-self", currentPerson.personalDetails.linkedinURL);
         populateDataInElement("bio-text", currentPerson.bioDetails);
         populateDataInElement("friends-list", currentPerson.friendDetails);
         populateDataInElement("likes-list", currentPerson.likeDetails);
@@ -78,6 +72,7 @@ function reloadElements() {
     }
 }
 
+//initial page load
 reloadElements();
 
 $("#modal-form-dp").on("submit", function (e) {
