@@ -53,27 +53,74 @@ function populateDataInElement(elementId,data,isLink=false) {
     }
 }
 
-function reloadElements() {    
+function reloadElements(whatToUpdate) {    
     let currentPerson = getDataFromStorage("personDetails");
+    console.log("djnsjd");
+    
     if (currentPerson) {
-        populateDataInElement("dp-self", currentPerson.personalDetails.dpURLSelf, true);
-        populateDataInElement("name-self", currentPerson.personalDetails.name);
-        populateDataInElement("dob-self", currentPerson.personalDetails.dob);
-        populateDataInElement("city-self", currentPerson.personalDetails.city);
-        populateDataInElement("company-self", currentPerson.personalDetails.company);
-        populateDataInElement("facebook-self", currentPerson.personalDetails.facebookURL);
-        populateDataInElement("twitter-self", currentPerson.personalDetails.twitterURL);
-        populateDataInElement("github-self", currentPerson.personalDetails.githubURL);
-        populateDataInElement("linkedin-self", currentPerson.personalDetails.linkedinURL);
-        populateDataInElement("bio-text", currentPerson.bioDetails);
-        populateDataInElement("friends-list", currentPerson.friendDetails);
-        populateDataInElement("likes-list", currentPerson.likeDetails);
-        populateDataInElement("interests-list", currentPerson.interestDetails);
+        switch (whatToUpdate) {
+            case "selfDP":
+                reloadSelfDPElements(currentPerson.personalDetails.dpURLSelf);
+                break;
+            case "personalDetails":
+                reloadPersonalDetailsElements(currentPerson.personalDetails);
+                break;
+            case "bio":
+                reloadBioElements(currentPerson.bioDetails);
+                break;
+            case "friends":
+                reloadFriendsElements(currentPerson.friendDetails);
+                break;
+            case "likes":
+                reloadLikesElements(currentPerson.likeDetails);
+                break;
+            case "interests":
+                reloadInterestsElements(currentPerson.interestDetails);
+                break;
+            case "all":
+                console.log("all");
+                
+                reloadSelfDPElements(currentPerson.personalDetails.dpURLSelf);
+                reloadPersonalDetailsElements(currentPerson.personalDetails);
+                reloadBioElements(currentPerson.bioDetails);
+                reloadFriendsElements(currentPerson.friendDetails);
+                reloadLikesElements(currentPerson.likeDetails);
+                reloadInterestsElements(currentPerson.interestDetails);
+                break;
+            default:
+                break;
+        }
     }
 }
 
+function reloadSelfDPElements(data) {
+    populateDataInElement("dp-self", data, true);    
+}
+function reloadPersonalDetailsElements(data) {
+    populateDataInElement("name-self", data.name);
+    populateDataInElement("dob-self", data.dob);
+    populateDataInElement("city-self", data.city);
+    populateDataInElement("company-self", data.company);
+    populateDataInElement("facebook-self", data.facebookURL);
+    populateDataInElement("twitter-self", data.twitterURL);
+    populateDataInElement("github-self", data.githubURL);
+    populateDataInElement("linkedin-self", data.linkedinURL);
+}
+function reloadBioElements(data) {
+    populateDataInElement("bio-text", data);
+}
+function reloadFriendsElements(data) {
+    populateDataInElement("friends-list", data);
+}
+function reloadLikesElements(data) {
+    populateDataInElement("likes-list", data);
+}
+function reloadInterestsElements(data) {
+    populateDataInElement("interests-list", data);
+}
+
 //initial page load
-reloadElements();
+reloadElements("all");
 
 $("#modal-form-dp").on("submit", function (e) {
     e.preventDefault();
@@ -82,7 +129,7 @@ $("#modal-form-dp").on("submit", function (e) {
     // e.target.elements[0].value = "";
     $("#dp-upload-modal").modal('hide');
     wStorage.setItem("personDetails",JSON.stringify(currentPerson));
-    reloadElements();
+    reloadElements("selfDP");
     return false;
 });
 
@@ -106,7 +153,7 @@ $("#page-form-personal-details").on("submit", function (e) {
     currentPerson.personalDetails.linkedinURL = e.target.elements[7].value;
     // e.target.elements[7].value = "";
     wStorage.setItem("personDetails",JSON.stringify(currentPerson));
-    reloadElements();
+    reloadElements("personalDetails");
     return false;
 });
 
@@ -115,7 +162,7 @@ $("#page-form-bio").on("submit", function (e) {
     let currentPerson = getDataFromStorage("personDetails");
     currentPerson.bioDetails = e.target.elements[0].value;
     wStorage.setItem("personDetails",JSON.stringify(currentPerson));
-    reloadElements();
+    reloadElements("bio");
     return false;
 })
 
@@ -131,7 +178,7 @@ $("#modal-form-friend").on("submit", function (e) {
     e.target.elements[1].value = "";
     $("#friend-upload-modal").modal('hide');
     wStorage.setItem("personDetails",JSON.stringify(currentPerson));
-    reloadElements();
+    reloadElements("friends");
     return false;
 });
 
@@ -147,7 +194,7 @@ $("#modal-form-like").on("submit", function (e) {
     e.target.elements[1].value = "";
     $("#like-upload-modal").modal('hide');
     wStorage.setItem("personDetails",JSON.stringify(currentPerson));
-    reloadElements();
+    reloadElements("likes");
     return false;
 });
 
@@ -163,7 +210,7 @@ $("#modal-form-interest").on("submit", function (e) {
     e.target.elements[1].value = "";
     $("#interest-upload-modal").modal('hide');
     wStorage.setItem("personDetails",JSON.stringify(currentPerson));    
-    reloadElements();
+    reloadElements("interests");
     return false;
 });
 

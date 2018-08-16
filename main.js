@@ -42,10 +42,8 @@ function populateDataInElement(elementId,data,isLink=false,isSocial=false) {
       return;
     }
   else{
-    if (elementId === "dob-self") {
-      console.log(data.split("-").reverse().join("-"));      
+    if (elementId === "dob-self") {     
       parentNode.innerHTML=data.split("-").reverse().join("-");
-      console.log(parentNode.innerHTML);      
     }
     else{
       parentNode.innerHTML=data;
