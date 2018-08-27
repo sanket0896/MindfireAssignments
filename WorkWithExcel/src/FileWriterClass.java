@@ -17,6 +17,7 @@ public class FileWriterClass {
 		return buffer;
 	}
 
+//	Takes a List<Student> and write all Student objects to a file
 	public void writeToFile(List<Student> studentList) throws IOException {
 		Iterator<Student> iter = studentList.iterator();
 		while(iter.hasNext()) {
@@ -27,6 +28,7 @@ public class FileWriterClass {
 		}		
 	}
 
+//	Closes the buffer
 	public void closeBuffer() throws IOException {
 		this.buffer.close();
 	}

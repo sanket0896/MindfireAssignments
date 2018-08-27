@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,22 +8,26 @@ public class Application {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
-		//get file name from argument
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+//		get file name from argument
+		InputStreamReader inpStreamRead = new InputStreamReader(System.in);
+		BufferedReader bufferRead = new BufferedReader(inpStreamRead);
 		System.out.println("Enter Path of .xls file");
-		String fileToOpen = br.readLine();
+		String fileToOpen = bufferRead.readLine();
 		System.out.println("Enter sort criteria");
-		String sortCriteria = br.readLine();
+		String sortCriteria = bufferRead.readLine();
 		System.out.println("Enter Path of file to write");
-		String fileToWrite = br.readLine();
+		String fileToWrite = bufferRead.readLine();
 		
-		//open the excel file by passing filename as string
+//		open the excel file by passing filename as string
 		ExcelRowReader rowReader = new ExcelRowReader(fileToOpen);
+		
+//		sort the rows of excel file according to given sort criteria
 		rowReader.sortRows(sortCriteria);
+		
+//		print all rows to output window
 		rowReader.printAllRows();
 		
-		//write to file
+		//write all rows to file
 		rowReader.writeToFile(fileToWrite);
 	}
 

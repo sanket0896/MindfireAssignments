@@ -1,15 +1,12 @@
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -19,12 +16,45 @@ public class ExcelRowReader {
 	private static HSSFRow row;
 	private List<Student> studentList;
 	
+	private class SortByName implements Comparator<Student>{
+
+		@Override
+		public int compare(Student o1, Student o2) {
+			return o1.getName().compareTo(o2.getName());
+		}
+	}
+
+	private class SortByRoll implements Comparator<Student>{
+
+		@Override
+		public int compare(Student o1, Student o2) {
+			return o1.getRoll() - o2.getRoll();
+		}
+	}
+
+	private class SortByClass implements Comparator<Student>{
+
+		@Override
+		public int compare(Student o1, Student o2) {
+			return o1.getStudClass() - o2.getStudClass();
+		}
+	}
+
+	private class SortByGrade implements Comparator<Student>{
+
+		@Override
+		public int compare(Student o1, Student o2) {
+			return o1.getGrade() - o2.getGrade();
+		}
+	}
+	
 	public ExcelRowReader(String fileToOpen) throws FileNotFoundException, IOException {
 		this.spreadsheet = new ExcelSpreadsheet(fileToOpen);
 		this.studentList = new ArrayList<Student>();
 		convertSheetToList();
 	}
 	
+//	Populates the studentList with Student objects
 	private void convertSheetToList() {
 		Iterator<Row> rowIterator = this.spreadsheet.getSpreadsheet().iterator();
 		while (rowIterator.hasNext()) {
@@ -36,6 +66,7 @@ public class ExcelRowReader {
 		}
 	}
 	
+//	Gets details of student from each column of a row and put it into Student object.
 	private Student convertRowToStudentObject() {
 		Iterator<Cell> cellIteartor = row.cellIterator();
 		Student student = new Student();
@@ -61,6 +92,7 @@ public class ExcelRowReader {
 		return student;
 	}
 
+//	Checks if it is the first row of the sheet
 	private boolean isRowFirst() {
 		if (this.spreadsheet.getSpreadsheet().getRow(0) == ExcelRowReader.row) {
 			return true;
@@ -68,25 +100,10 @@ public class ExcelRowReader {
 		return false;
 	}
 	
+//	Sort rows of the excel sheet according to the given sort criteria
 	public void sortRows(String sortCriteria) {
 		
-		int sortCriteriaColumnIndex = -1;
-		Iterator<Row> rowIterator = this.spreadsheet.getSpreadsheet().iterator();
-		
-		if(rowIterator.hasNext()) {
-			
-			row = (HSSFRow) rowIterator.next();
-			Iterator<Cell> cellIterator = row.cellIterator();
-			
-			while(cellIterator.hasNext()) {
-				Cell cell = cellIterator.next();
-				if(cell.getStringCellValue() == sortCriteria) {
-					sortCriteriaColumnIndex = cell.getColumnIndex();
-					break;
-				}
-			}
-		}
-		
+		sortCriteria = sortCriteria.toLowerCase();
 		switch(sortCriteria) {
 		case "name":
 			sortRowsByName();
@@ -101,27 +118,33 @@ public class ExcelRowReader {
 			sortRowsByGrade();
 			break;
 		default:
+			System.out.println("Invalid Sort Criteria");
 			break;
 		}
 				
 	}
 
+//	Helper function to sort rows of excel sheet by grade
 	private void sortRowsByGrade() {
 		Collections.sort(studentList, new SortByGrade());
 	}
 
+//	Helper function to sort rows of excel sheet by class
 	private void sortRowsByClass() {
 		Collections.sort(studentList, new SortByClass());
 	}
 
+//	Helper function to sort rows of excel sheet by roll
 	private void sortRowsByRoll() {
 		Collections.sort(studentList, new SortByRoll());
 	}
 
+//	Helper function to sort rows of excel sheet by name
 	private void sortRowsByName() {
 		Collections.sort(studentList, new SortByName());
 	}
 	
+//	Prints all elements of studentList to the output window in a table format
 	public void printAllRows() {
 		System.out.println("Name\t\tRoll\t\tClass\t\tGrade\t\t");
 		Iterator<Student> iter = studentList.iterator();
@@ -132,45 +155,10 @@ public class ExcelRowReader {
 		}
 	}
 
+//	Writes all elements of studentList to the output file in a table format 
 	public void writeToFile(String fileToWrite) throws IOException {
 		FileWriterClass fWrite = new FileWriterClass(fileToWrite);
 		fWrite.writeToFile(studentList);
 		fWrite.closeBuffer();
 	}
-}
-
-class SortByName implements Comparator<Student>{
-
-	@Override
-	public int compare(Student o1, Student o2) {
-		return o1.getName().compareTo(o2.getName());
-	}
-	
-}
-
-class SortByRoll implements Comparator<Student>{
-
-	@Override
-	public int compare(Student o1, Student o2) {
-		return o1.getRoll() - o2.getRoll();
-	}
-	
-}
-
-class SortByClass implements Comparator<Student>{
-
-	@Override
-	public int compare(Student o1, Student o2) {
-		return o1.getStudClass() - o2.getStudClass();
-	}
-	
-}
-
-class SortByGrade implements Comparator<Student>{
-
-	@Override
-	public int compare(Student o1, Student o2) {
-		return o1.getGrade() - o2.getGrade();
-	}
-	
 }
