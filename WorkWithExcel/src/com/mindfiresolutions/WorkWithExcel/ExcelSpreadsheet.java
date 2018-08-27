@@ -1,8 +1,15 @@
+package com.mindfiresolutions.WorkWithExcel;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
+/**
+ * Creates an Excel Spreadsheet from the given .xls file
+ * @author Sanket
+ *
+ */
 public class ExcelSpreadsheet {
 	
 	private HSSFSheet spreadsheet;

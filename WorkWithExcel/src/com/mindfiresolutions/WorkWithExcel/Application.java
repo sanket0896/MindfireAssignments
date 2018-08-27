@@ -1,9 +1,16 @@
+package com.mindfiresolutions.WorkWithExcel;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
-//Entry point for Java to execute the program
+/**
+ * Entry point for Java to execute the WorkWithExcel program.
+ * @author Sanket
+ *
+ */
 public class Application {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -21,14 +28,20 @@ public class Application {
 //		open the excel file by passing filename as string
 		ExcelRowReader rowReader = new ExcelRowReader(fileToOpen);
 		
+//		get list of students
+		List<Student> studentList = rowReader.getStudentList();
+		
+//		initialise StudentOperator object
+		StudentOperator studOp = new StudentOperator(studentList);
+		
 //		sort the rows of excel file according to given sort criteria
-		rowReader.sortRows(sortCriteria);
+		studOp.sortRows(sortCriteria);
 		
 //		print all rows to output window
-		rowReader.printAllRows();
+		studOp.printAllRows();
 		
 		//write all rows to file
-		rowReader.writeToFile(fileToWrite);
+		studOp.writeToFile(fileToWrite);
 	}
 
 }

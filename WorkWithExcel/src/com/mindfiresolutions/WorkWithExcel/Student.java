@@ -1,3 +1,10 @@
+package com.mindfiresolutions.WorkWithExcel;
+
+/**
+ * Contains the details of student as extracted from the rows
+ * @author mindfire
+ *
+ */
 public class Student {
 	private String name;
 	private int roll;
