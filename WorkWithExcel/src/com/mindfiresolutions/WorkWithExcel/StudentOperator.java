@@ -116,7 +116,7 @@ public class StudentOperator {
 	 * Prints all elements of {@link Student} List to the output window in a table format
 	 */
 	public void printAllRows(List<Student> studentList) {
-		System.out.println("Name\t\tRoll\t\tClass\t\tGrade\t\t");
+		System.out.println("\n\nName\t\tRoll\t\tClass\t\tGrade\t\t");
 		Iterator<Student> iter = studentList.iterator();
 		while(iter.hasNext()) {
 			Student stud = iter.next();
