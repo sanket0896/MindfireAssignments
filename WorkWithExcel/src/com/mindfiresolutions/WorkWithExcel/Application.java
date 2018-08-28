@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Entry point for Java to execute the WorkWithExcel program.
- * @author Sanketj
+ * @author Sanket
  *
  */
 public class Application {
@@ -54,10 +54,10 @@ public class Application {
 		StudentOperator studOp = new StudentOperator(studentList);
 		
 //		sort the rows of excel file according to given sort criteria
-		studOp.sortRows(sortCriteria);
+		studentList = studOp.sortRows(sortCriteria);
 		
 //		print all rows to output window
-		studOp.printAllRows(studentList);
+		studOp.printRows(studentList);
 		
 //		print rows filtered by prefix
 		studOp.printFilteredRows(filterPrefix);

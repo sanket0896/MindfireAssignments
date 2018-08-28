@@ -3,7 +3,6 @@ package com.mindfiresolutions.WorkWithExcel;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -36,9 +35,7 @@ public class FileWriterClass {
 	 * @param studentList
 	 */
 	public void writeToFile(List<Student> studentList) {
-		Iterator<Student> iter = studentList.iterator();
-		while(iter.hasNext()) {
-			Student stud = iter.next();
+		studentList.forEach(stud -> {
 			try {
 				this.buffer.write(stud.getName()+TAB_SPACE+stud.getRoll()+TAB_SPACE+stud.getStudClass()+
 						TAB_SPACE+stud.getGrade());
@@ -46,7 +43,7 @@ public class FileWriterClass {
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");
 			}
-		}		
+		});	
 	}
 
 	/**

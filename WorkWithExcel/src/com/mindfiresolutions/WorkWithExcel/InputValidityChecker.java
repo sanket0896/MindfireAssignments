@@ -3,6 +3,7 @@ package com.mindfiresolutions.WorkWithExcel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -52,7 +53,12 @@ public class InputValidityChecker {
 		}
 		if (filePathStr.endsWith(fileExtension)) {
 			
-			Path filePath = Paths.get(filePathStr);
+			Path filePath = null;
+			try {
+				filePath = Paths.get(filePathStr);
+			} catch (InvalidPathException e) {
+				System.out.println("Error: Couldn't find the path specified");
+			}
 			if (Files.exists(filePath))
 				return true;
 			else
