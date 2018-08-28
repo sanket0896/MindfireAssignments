@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -114,7 +115,7 @@ public class StudentOperator {
 	/**
 	 * Prints all elements of {@link Student} List to the output window in a table format
 	 */
-	public void printAllRows() {
+	public void printAllRows(List<Student> studentList) {
 		System.out.println("Name\t\tRoll\t\tClass\t\tGrade\t\t");
 		Iterator<Student> iter = studentList.iterator();
 		while(iter.hasNext()) {
@@ -133,6 +134,17 @@ public class StudentOperator {
 		FileWriterClass fWrite = new FileWriterClass(fileToWrite);
 		fWrite.writeToFile(studentList);
 		fWrite.closeBuffer();
+	}
+	
+	/**
+	 * Prints a list of all Students whose name starts with the given prefix
+	 * @param prefix
+	 */
+	public void printFilteredRows(String prefix) {
+		List<Student> filteredStudentList = studentList.stream()
+				.filter(student -> student.getName().toLowerCase().startsWith(prefix.toLowerCase()))
+				.collect(Collectors.toList());
+		this.printAllRows(filteredStudentList);
 	}
 
 }
