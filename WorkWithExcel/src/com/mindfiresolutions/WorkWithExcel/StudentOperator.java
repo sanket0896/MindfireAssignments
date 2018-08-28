@@ -1,6 +1,5 @@
 package com.mindfiresolutions.WorkWithExcel;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -19,7 +18,9 @@ import java.util.stream.Collectors;
  */
 public class StudentOperator {
 
-	private List<Student> studentList;	
+	private List<Student> studentList;
+	private static final String TAB_SPACE = "\t\t";
+	private static final String NEW_LINE = "\n\n";
 
 	public StudentOperator(List<Student> studentList) {
 		this.studentList = studentList;
@@ -116,12 +117,12 @@ public class StudentOperator {
 	 * Prints all elements of {@link Student} List to the output window in a table format
 	 */
 	public void printAllRows(List<Student> studentList) {
-		System.out.println("\n\nName\t\tRoll\t\tClass\t\tGrade\t\t");
+		System.out.println(NEW_LINE+"Name"+TAB_SPACE+"Roll"+TAB_SPACE+"Class"+TAB_SPACE+"Grade");
 		Iterator<Student> iter = studentList.iterator();
 		while(iter.hasNext()) {
 			Student stud = iter.next();
-			System.out.println(stud.getName()+"\t\t"+stud.getRoll()+"\t\t"+
-					stud.getStudClass()+"\t\t"+stud.getGrade());
+			System.out.println(stud.getName()+TAB_SPACE+stud.getRoll()+TAB_SPACE+
+					stud.getStudClass()+TAB_SPACE+stud.getGrade());
 		}
 	}
 
@@ -130,13 +131,9 @@ public class StudentOperator {
 	 * @param fileToWrite
 	 */
 	public void writeToFile(String fileToWrite) {
-		try {
 			FileWriterClass fWrite = new FileWriterClass(fileToWrite);
 			fWrite.writeToFile(studentList);
 			fWrite.closeBuffer();
-		} catch (IOException e) {
-			System.out.println("There was an Error writing to file.");
-		}
 	}
 
 	/**

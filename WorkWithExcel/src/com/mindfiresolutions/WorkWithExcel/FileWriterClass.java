@@ -15,10 +15,15 @@ import java.util.List;
 public class FileWriterClass {
 	
 	private BufferedWriter buffer;
-	public static final String TAB = "\t\t";
+	private static final String TAB_SPACE = "\t\t";
 	
-	public FileWriterClass(String fileToWrite) throws IOException {
-		FileWriter writer = new FileWriter(fileToWrite);
+	public FileWriterClass(String fileToWrite) {
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(fileToWrite);
+		} catch (IOException e) {
+			System.out.println("Error creating FileWriter instance.");
+		}
 		this.buffer = new BufferedWriter(writer);
 	}
 
@@ -29,24 +34,30 @@ public class FileWriterClass {
 	/**
 	 * Takes a List<Student> and write all Student objects to a file
 	 * @param studentList
-	 * @throws IOException
 	 */
-	public void writeToFile(List<Student> studentList) throws IOException {
+	public void writeToFile(List<Student> studentList) {
 		Iterator<Student> iter = studentList.iterator();
 		while(iter.hasNext()) {
 			Student stud = iter.next();
-			this.buffer.write(stud.getName()+TAB+stud.getRoll()+TAB+stud.getStudClass()+
-					TAB+stud.getGrade());
-			this.buffer.newLine();
+			try {
+				this.buffer.write(stud.getName()+TAB_SPACE+stud.getRoll()+TAB_SPACE+stud.getStudClass()+
+						TAB_SPACE+stud.getGrade());
+				this.buffer.newLine();
+			} catch (IOException e) {
+				System.out.println("Error writing to file.");
+			}
 		}		
 	}
 
 	/**
 	 * Closes the buffer
-	 * @throws IOException
 	 */
-	public void closeBuffer() throws IOException {
-		this.buffer.close();
+	public void closeBuffer() {
+		try {
+			this.buffer.close();
+		} catch (IOException e) {
+			System.out.println("Error in closing the buffer.");
+		}
 	}
 	
 }

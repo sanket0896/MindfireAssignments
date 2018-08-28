@@ -1,7 +1,5 @@
 package com.mindfiresolutions.WorkWithExcel;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +24,7 @@ public class ExcelRowReader {
 		return studentList;
 	}
 
-	public ExcelRowReader(String fileToOpen) throws FileNotFoundException, IOException {
+	public ExcelRowReader(String fileToOpen) {
 		this.spreadsheet = new ExcelSpreadsheet(fileToOpen);
 		this.studentList = new ArrayList<Student>();
 		convertSheetToList();

@@ -17,11 +17,17 @@ public class ExcelWorkbook {
 
 	private HSSFWorkbook workbook;
 	
-	public ExcelWorkbook(String fileToOpen) throws FileNotFoundException,IOException {
+	public ExcelWorkbook(String fileToOpen){
 		File file = new File(fileToOpen);
-		FileInputStream fInpStream = new FileInputStream(file);
-		this.workbook = new HSSFWorkbook(fInpStream);
-		fInpStream.close();
+		try {
+			FileInputStream fInpStream = new FileInputStream(file);
+			this.workbook = new HSSFWorkbook(fInpStream);
+			fInpStream.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Error: "+fileToOpen+" was not found.");
+		} catch (IOException e) {
+			System.out.println("Error: There was a problem opening the file.");
+		}
 	}
 
 	public HSSFWorkbook getWorkbook() {

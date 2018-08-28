@@ -1,8 +1,5 @@
 package com.mindfiresolutions.WorkWithExcel;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 /**
@@ -14,7 +11,7 @@ public class ExcelSpreadsheet {
 	
 	private HSSFSheet spreadsheet;
 
-	public ExcelSpreadsheet(String fileToOpen) throws FileNotFoundException, IOException {
+	public ExcelSpreadsheet(String fileToOpen) {
 		ExcelWorkbook workbook = new ExcelWorkbook(fileToOpen);
 		this.spreadsheet = workbook.getWorkbook().getSheetAt(0);
 	}
