@@ -29,7 +29,7 @@ public class StudentOperator {
 
 		@Override
 		public int compare(Student o1, Student o2) {
-			return o1.getName().compareTo(o2.getName());
+			return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 		}
 	}
 
@@ -128,12 +128,27 @@ public class StudentOperator {
 	/**
 	 * Writes all elements of {@link Student} List to the output file in a table format 
 	 * @param fileToWrite
-	 * @throws IOException
 	 */
-	public void writeToFile(String fileToWrite) throws IOException {
-		FileWriterClass fWrite = new FileWriterClass(fileToWrite);
-		fWrite.writeToFile(studentList);
-		fWrite.closeBuffer();
+	public void writeToFile(String fileToWrite) {
+		try {
+			FileWriterClass fWrite = new FileWriterClass(fileToWrite);
+			fWrite.writeToFile(studentList);
+			fWrite.closeBuffer();
+		} catch (IOException e) {
+			System.out.println("There was an Error writing to file.");
+		}
+	}
+
+	/**
+	 * 
+	 * @param prefix
+	 * @return List<Student>
+	 */
+	private List<Student> filterRows(String prefix) {
+		List<Student> filteredStudentList = studentList.stream()
+				.filter(student -> student.getName().toLowerCase().startsWith(prefix.toLowerCase()))
+				.collect(Collectors.toList());
+		return filteredStudentList;
 	}
 	
 	/**
@@ -141,9 +156,7 @@ public class StudentOperator {
 	 * @param prefix
 	 */
 	public void printFilteredRows(String prefix) {
-		List<Student> filteredStudentList = studentList.stream()
-				.filter(student -> student.getName().toLowerCase().startsWith(prefix.toLowerCase()))
-				.collect(Collectors.toList());
+		List<Student> filteredStudentList = filterRows(prefix);
 		this.printAllRows(filteredStudentList);
 	}
 
